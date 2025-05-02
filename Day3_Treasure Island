@@ -36,7 +36,7 @@ if choice1 == "left":
         elif choice3 == "blue":
             print("You are eaten by a beast. Game over")
         elif choice3 == "yellow":
-            print("You Win!)")
+            print("You Win!")
         else:
             print("Game Over")
     else:
