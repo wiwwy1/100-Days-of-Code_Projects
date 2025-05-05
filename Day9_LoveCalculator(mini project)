@@ -1,0 +1,24 @@
+def calculate_love_score(name1, name2):
+    # number oftimes the letters in the word TRUE occurs
+    true = "TRUE"
+    love = "LOVE"
+    n = len(name1 +name2)
+    n1 = 0
+    n2 = 0
+    name = name1.upper() + name2.upper()
+    
+    for letter in name:
+        if letter in true:
+           n1 += 1
+           #print(f"n1: {n1}")
+   
+   
+    for letter in name:
+        if  letter in love:
+            n2 += 1
+            #print(f"n2: {n2}")
+    n -=1
+            
+    print(str(n1)+str(n2))    
+    
+calculate_love_score(name1 = "Angela Yu", name2 = "Jack Bauer")
