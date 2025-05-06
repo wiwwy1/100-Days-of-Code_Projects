@@ -1,0 +1,43 @@
+# TODO-1: Import and print the logo from art.py when the program starts.
+#import art
+#print(art.logo)
+
+def decrypt_text(original_text, shift_amount):
+    cipher_text = ""
+    for letter in original_text:
+        if letter not in alphabet:
+            cipher_text += letter
+        elif alphabet.index(letter) + shift_amount > 0:
+            encrypt_letter = alphabet[alphabet.index(letter) - shift_amount]
+            cipher_text += encrypt_letter
+        elif alphabet.index(letter) + shift_amount < 0:
+            encrypt_letter = alphabet[alphabet.index(letter) + len(alphabet) - shift_amount]
+            cipher_text += encrypt_letter
+    print(cipher_text)
+
+def encrypt_text(original_text, shift_amount):
+    cipher_text = ""
+    for letter in original_text:
+        if letter not in alphabet:
+            cipher_text += letter
+        else:
+            shifted_position = alphabet.index(letter) + shift_amount
+            shifted_position %= len(alphabet)
+            cipher_text += alphabet[shifted_position]
+        
+    print(f"Here is the encoded result: {cipher_text}")
+    
+def caesar(original_text, shift_amount, encode_or_decode):
+    if direction == 'encode':
+        encrypt_text(original_text, shift_amount)
+    elif direction == 'decode':
+        decrypt_text(original_text, shift_amount)
+    repeat = print(input("If you want to go again print yes otherwise, type no:"))
+
+# TODO-3: Can you figure out a way to restart the cipher program?
+repeat = "yes"
+while repeat == "yes":
+    direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n").lower()
+    text = input("Type your message:\n").lower()
+    shift = int(input("Type the shift number:\n"))
+    caesar(original_text=text, shift_amount=shift, encode_or_decode=direction)
