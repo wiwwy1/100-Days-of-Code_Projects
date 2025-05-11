@@ -1,0 +1,51 @@
+def add(n1, n2):
+    """add two numbers"""
+    return n1 + n2
+
+def subtract(n1, n2):
+    """subtract two numbers"""
+    return n1 - n2
+
+def multiply(n1, n2):
+    """multiply two numbers"""
+    return n1 * n2
+
+def divide(n1, n2):
+    """divide two numbers"""
+    return n1 / n2
+
+operators = {"+": add, "-": subtract, "*": multiply, "/": divide}
+
+calculate = "y"
+n1 = float(input("Enter first number: "))
+while calculate == "y":
+    for key in operators:
+        print(key)
+    operator = input("Enter operator: ")
+    n2 = float(input("Enter second number: "))
+
+    if operator == "+":
+        add(n1, n2)
+        result = add(n1, n2)
+        print(f"{n1} + {n2} = {result}")
+        n1 = result
+    elif operator == "-":
+        subtract(n1, n2)
+        result = subtract(n1, n2)
+        print(f"{n1} - {n2} = {result}")
+        n1 = result
+    elif operator == "*":
+        multiply(n1, n2)
+        n1 = multiply(n1, n2)
+        result = multiply(n1, n2)
+        print(f"{n1} * {n2} = {result}")
+        n1 = result
+    elif operator == "/":
+        divide(n1, n2)
+        result = divide(n1, n2)
+        print(f"{n1} / {n2} = {result}")
+        n1 = result
+
+    calculate = input("type y to continue, n to start a new calculation:")
+
+print(result)
