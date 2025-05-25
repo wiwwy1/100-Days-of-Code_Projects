@@ -1,3 +1,6 @@
+# Have to add if sum is over 21
+# Depending on sum ace score
+
 import random
 #play_start = input("Do you want to play black jack? Enter yes or no\n")
 
