@@ -1,0 +1,56 @@
+import random
+#play_start = input("Do you want to play black jack? Enter yes or no\n")
+
+def start():
+    Answer = input("Do you want to play black jack? Enter yes or no\n")
+    if Answer == "yes":
+        import art
+        print(art.logo)
+        your_cards = random.sample(cards, 2)
+        dealer_cards = random.sample(cards, 1)
+        print(f'Your cards: {your_cards}, current score: {sum(your_cards)}\nDealer first cards: {dealer_cards[0]}')
+        third(your_cards, dealer_cards)
+    elif Answer == "no":
+        print("Goodbye")
+    else:
+        print("Sorry, I don't understand your input")
+
+def third(x, y):
+    ask_third = input("Type y to get another card, type n to pass\n")
+    if ask_third == "y":
+        your_new_card = random.choice(cards)
+        dealer_new_card = random.sample(cards, random.randint(1,2))
+        print(dealer_new_card)
+        x.append(your_new_card)
+        y= y + dealer_new_card
+        print(
+            f'Your cards: {x}, current score: {sum(x)}\nDealer cards: {y}, current score: {sum(y)}')
+        compare_values(sum(x), sum(y))
+        # print(f'Your cards: {your_cards_third}, current score: {sum(your_cards_third)}\nDealer cards: {dealer_cards_third}, current score: {sum(dealer_cards_third)}')
+    elif ask_third == "n":
+        if random.randint(0, 1) == 0:
+            dealer_new_card = random.choice(cards)
+            y= y + dealer_new_card
+            print(f'Your cards: {x}, current score: {sum(x)}\nDealer cards: {y}, current score: {sum(y)}')
+            compare_values(sum(x), sum(y))
+        else:
+            dealer_new_card = random.sample(cards, 2)
+            y= y + dealer_new_card
+            print(f'Your cards: {x}, current score: {sum(x)}\nDealer cards: {y}, current score: {sum(y)}')
+            compare_values(sum(x), sum(y))
+
+def compare_values(a, b):
+    if abs(21 - a) < abs(21 - b):
+       print('You win')
+    elif abs(21 - a) > abs(21 - b):
+        print('Dealer wins')
+    else:
+        print('Draw')
+
+
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+
+play = 1
+while play == True:
+    start()
+    print('\n')
