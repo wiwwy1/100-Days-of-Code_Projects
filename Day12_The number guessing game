@@ -1,0 +1,48 @@
+import art
+import random
+print("Welcome to the Number Guessing Game!")
+print(art.logo)
+
+
+def generate_num():
+    return random.randint(1, 100)
+
+def compare_values(x, y, z):
+    while z > 0:
+        print(f"you have {str(z)} guesses left")
+        if x < y:
+            print(f'{x} is too low')
+            z -= 1
+        elif x > y:
+            print(f'{x} is too high')
+            z -= 1
+        elif x == y:
+            print(f'Correct, The answer is {x}')
+            break
+        x = int(input("guess the number: "))
+    print("you've run out of guesses")
+
+
+def difficulty(level):
+    if level == 'easy':
+        return 10
+    elif level == 'hard':
+        return 5
+    else:
+        print("Input makes no sense")
+        return 0
+
+def decrease_guess_nr(z):
+    while z > 0:
+        z -= 1
+        print(f"you have {str(z)} guesses left")
+
+
+answer = generate_num()
+level = input("choose a difficulty. Type 'easy' or 'hard'\n")
+
+if difficulty(level) != 0:
+    guess = int(input(f'You have {difficulty(level)} attempts to guess a number.\nMake a guess: ' ))
+    nr_guesses = difficulty(level)
+    compare_values(guess, answer, nr_guesses)
+    print(f"Answer is {answer}")
