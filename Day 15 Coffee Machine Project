@@ -1,0 +1,157 @@
+MENU = {
+    "espresso": {"ingredients": {
+                 "water": 50,
+                  "coffee": 18,},
+        "cost": 1.5,},
+
+    "latte": {"ingredients": {
+            "water": 200,
+            "milk": 150,
+            "coffee": 24,},
+        "cost": 2.5,},
+
+    "cappuccino": {"ingredients": {
+            "water": 250,
+            "milk": 100,
+            "coffee": 24,},
+        "cost": 3.0,}
+}
+
+resources = {
+    "water": 300,
+    "milk": 200,
+    "coffee": 100,
+}
+
+money = {"Money": 0}
+initial_report = (resources|money)
+
+def welcome_user():
+    userinput = input("What would you like? (espresso/latte/cappuccino): ")
+    return userinput
+
+def process_cash(y):
+
+    sum_coins = 0
+    if y == "espresso" or y == "latte" or y == "cappuccino":
+        print("Please insert coins")
+        while sum_coins < MENU[y]["cost"]:
+            coins = input("quarters, dimes, nickles, pennies, no Money): ")
+            if  coins == "quarters":
+                n_quarters = (input("How many quarters?"))
+                n_quarters = float(n_quarters)
+                sum_coins += float(0.25*(n_quarters))
+                print(sum_coins)
+                if sum_coins < MENU[y]["cost"]:
+                    print("Sorry, not enough money")
+                else: money["Money"] = money["Money"] + sum_coins
+            elif coins == "dimes":
+                n_dimes = (input("How many dimes?"))
+                n_dimes = float(n_dimes)
+                sum_coins += float(0.10*(n_dimes))
+                print(sum_coins)
+                if sum_coins < MENU[y]["cost"]:
+                    print("Sorry, not enough money")
+                else:
+                    money["Money"] = money["Money"] + sum_coins
+            elif coins == "nickles":
+                n_nickles = (input("How many nickles?"))
+                n_nickles = float(n_nickles)
+                sum_coins +=  float(0.05*(n_nickles))
+                print(sum_coins)
+                if sum_coins < MENU[y]["cost"]:
+                    print("Sorry, not enough money")
+                else:
+                    money["Money"] = money["Money"] + sum_coins
+            elif coins == "pennies":
+                n_pennies = (input("How many pennies?"))
+                n_pennies = float(n_pennies)
+                sum_coins +=  float(0.01*(n_pennies))
+                print(sum_coins)
+                if sum_coins < MENU[y]["cost"]:
+                    print("Sorry, not enough money")
+                else:
+                    money["Money"] = money["Money"] + sum_coins
+            elif coins == "no Money":
+                money["Money"] = 0
+                print("Coins are returned")
+                break
+
+def update_report(z):
+    if z == "espresso":
+        resources["water"] -=  MENU[z]["ingredients"]["water"]
+        resources["coffee"] -= MENU[z]["ingredients"]["coffee"]
+
+    elif z == "latte" or "cappuccino":
+        resources["water"] -= MENU[z]["ingredients"]["water"]
+        resources["coffee"] -= MENU[z]["ingredients"]["coffee"]
+        resources["milk"] -= MENU[z]["ingredients"]["milk"]
+
+def return_coins(t):
+    return_coins = money["Money"] - MENU[t]["cost"]
+    print(f"Here is your return: {return_coins} $")
+
+
+
+
+def show_report(x):
+    if x == "report":
+        report = resources|money
+        print(report)
+    elif x == "espresso":
+        if MENU["espresso"]["ingredients"]["water"] > resources["water"]:
+            return "Sorry, not enough water"
+
+        elif MENU["espresso"]["ingredients"]["coffee"] > resources["coffee"]:
+            return "Sorry, not enough coffee"
+
+        else:
+            return "okay"
+
+
+
+    elif x == "latte":
+        if MENU["latte"]["ingredients"]["water"] > resources["water"]:
+            return "Sorry, not enough water"
+
+        elif MENU["latte"]["ingredients"]["milk"] > resources["milk"]:
+            return "Sorry, not enough milk"
+
+        elif MENU["latte"]["ingredients"]["coffee"] > resources["coffee"]:
+            return "Sorry, not enough coffee"
+        else:
+            return "okay"
+
+
+    elif x == "cappuccino":
+        if MENU["cappuccino"]["ingredients"]["water"] > resources["water"]:
+            return "Sorry, not enough water"
+
+        elif MENU["cappuccino"]["ingredients"]["milk"] > resources["milk"]:
+            return "Sorry, not enough milk"
+
+        elif MENU["cappuccino"]["ingredients"]["coffee"] > resources["coffee"]:
+            return "Sorry, not enough coffee"
+        else:
+            return "okay"
+
+
+
+while True:
+    user_input = welcome_user()
+    if user_input != "off":
+        show_report(user_input)
+        result = show_report(user_input)
+        if "Sorry" in result :
+            print(result)
+            break
+        else:
+            process_cash(user_input)
+            update_report(user_input)
+            print(initial_report)
+            print(resources|money)
+            return_coins(user_input)
+            print(f"Here is your {user_input}, enjoy!")
+
+    else:
+        break
